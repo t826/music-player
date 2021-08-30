@@ -42,10 +42,7 @@
 		}
 	});
 	let show;
-	//歌词移动
-	onMount(() => {
-		lrcMove;
-	});
+
 	//   播放器列表
 	let htmldata = null;
 	htmlList.subscribe((value) => {
@@ -66,12 +63,16 @@
 
 	// 下一页
 	function nextPage() {
-		searchObj.update((data) => {
-			let next = parseInt(data.page) + 1;
-			data.page = next.toString();
-			return data;
-		});
-		search($searchObj);
+		this.innerHTML = 'loading...';
+		setTimeout(() => {
+			searchObj.update((data) => {
+				let next = parseInt(data.page) + 1;
+				data.page = next.toString();
+				return data;
+			});
+			search($searchObj);
+			this.innerHTML = '加载更多...';
+		}, 5000);
 	}
 </script>
 
@@ -105,7 +106,7 @@
 		{/if}
 	</div>
 
-	<div class="info-song"  hidden={show}>
+	<div class="info-song" hidden={show}>
 		<div class="img-song"><img src={imgSong} alt="song-img" /></div>
 		<div class="text-song">
 			<div class="text-song-name">{htmldata.length > 0 ? htmldata[SongIndex].name : ''}</div>
@@ -134,23 +135,27 @@
 			/* background-color: aliceblue; */
 		}
 		.lef {
-		/* 音乐列表区布局 */
-		position: relative;
-		overflow-y: auto;
-		width: 100%;
+			/* 音乐列表区布局 */
+			position: relative;
+			overflow-y: auto;
+			width: 100%;
 
-		/* background-color:  green; */
-	}
-	.lef::-webkit-scrollbar {
+			/* 兼容火狐浏览器滚动条 */
+			scrollbar-color: rgb(250, 76, 76) transparent;
+			scrollbar-width: thin;
+
+			/* background-color:  green; */
+		}
+		.lef::-webkit-scrollbar {
 			width: 5px;
 			height: 3px;
 			border-radius: 3px;
-	}
-	.lef::-webkit-scrollbar-thumb {
+		}
+		.lef::-webkit-scrollbar-thumb {
 			border-radius: 5px;
 			background-color: rgb(250, 76, 76);
-	}
-	.one-song {
+		}
+		.one-song {
 			display: flex;
 			justify-content: space-between;
 			height: 60px;
@@ -161,7 +166,7 @@
 			box-shadow: 0 2px 2px rgba(10, 16, 20, 0.24), 0 0 2px rgba(10, 16, 20, 0.12);
 			border-radius: 3px;
 		}
-		
+
 		.index {
 			width: 40px;
 		}
@@ -194,20 +199,17 @@
 			margin-bottom: 140px;
 			color: rgb(250, 76, 76);
 		}
-	.none-list{
-		text-align: center;
-		margin: 50% auto;
-	}
-	/* 播放中歌曲样式 */
-	.songplaying {
+		.none-list {
+			text-align: center;
+			margin: 50% auto;
+		}
+		/* 播放中歌曲样式 */
+		.songplaying {
 			background-color: rgb(0, 175, 175);
 			color: aliceblue;
 		}
 
-
-
-
-	.info-song {
+		.info-song {
 			/* 歌曲右半部分 图片和歌词信息 */
 			display: none;
 			background-color: rgb(25, 25, 25);
@@ -216,36 +218,9 @@
 			overflow-y: auto;
 		}
 	}
-
 	/* 手机样式结束 */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	@media only screen and (min-width: 768px)  {
+	@media only screen and (min-width: 768px) {
 		/* 电脑样式 */
 		.content {
 			display: flex;
@@ -263,12 +238,18 @@
 			position: relative;
 			overflow-y: auto;
 			width: 50%;
+			/* 兼容火狐浏览器滚动条 */
+			scrollbar-color: rgb(250, 76, 76) transparent;
+			scrollbar-width: thin;
 			/* border: 1px solid green; */
 		}
 		.lef::-webkit-scrollbar {
 			width: 5px;
 			height: 3px;
 			border-radius: 3px;
+			/* 兼容火狐浏览器滚动条 */
+			scrollbar-color: rgb(250, 76, 76) transparent;
+			scrollbar-width: thin;
 		}
 		.lef::-webkit-scrollbar-thumb {
 			border-radius: 5px;
@@ -339,6 +320,9 @@
 			backdrop-filter: blur(3px);
 			-webkit-backdrop-filter: blur(3px);
 			overflow-y: auto;
+			/* 兼容火狐浏览器滚动条 */
+			scrollbar-color: rgb(250, 76, 76) transparent;
+			scrollbar-width: thin;
 		}
 		.info-song::-webkit-scrollbar {
 			width: 5px;
@@ -402,6 +386,9 @@
 			overflow-y: auto;
 			transition: all 0.5s ease-out;
 			background-color: aliceblue;
+			/* 兼容火狐浏览器滚动条 */
+			scrollbar-color: rgb(250, 76, 76) transparent;
+			scrollbar-width: thin;
 		}
 
 		.aplayer-lrc::-webkit-scrollbar {

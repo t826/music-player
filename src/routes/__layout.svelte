@@ -1,20 +1,37 @@
 <script>
 	import Zuoce from './zuoce.svelte';
-	// import {fly} from 'svelte/transition'
+	 import {onMount} from 'svelte'
 	import A from './player.svelte';
 	let open = true;
+	let leftLength;
+
+	onMount(() => {
+		// 创建查询列表
+		let mql = [window.matchMedia('(max-width: 768px)'), window.matchMedia('(min-width: 768px)')];
+		function mediaMatchs() {
+			if (mql[0].matches) {
+				leftLength = '0px';
+			} else {
+				leftLength = '180px';
+			}
+		};
+		mediaMatchs()
+		for (let i = 0; i < mql.length; i++) {
+    mql[i].addListener(mediaMatchs)
+}
+	});
 </script>
 
 <Zuoce
 	zhuanfa={() => {
 		open = !open;
-		// console.log('底部收到', open);
 	}}
+	openHeight={leftLength=='180px'? '85px':'65px'}
 />
 <main>
 	<div class="dingbu-down" />
 	<div id="content">
-		<div class="zuoce-down" style="min-width: {open ? '180px' : '0px'};" />
+		<div class="zuoce-down" style="min-width:{open ? leftLength: '0px'};" />
 
 		<div class="content-center">
 			<slot />
@@ -41,6 +58,7 @@
 	.zuoce-down {
 		height: 100%;
 		/* background-color: bisque; */
+		/* border: 1px solid red; */
 		transition: all 0.5s;
 	}
 

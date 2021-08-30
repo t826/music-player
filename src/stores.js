@@ -53,7 +53,7 @@ export async function search(option) {
 				}
 				if(songGroup.length !=0){
 					songList.set(songGroup);
-					console.log(songGroup);
+					// console.log(songGroup);	
 				}else{
 					searchMore.set(false)
 				}
