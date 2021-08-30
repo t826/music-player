@@ -3,7 +3,7 @@
 	let className = 'acg';
 	let noullImg = 'http://tva4.sinaimg.cn/large/006sgEkcgy1gsm4smn9pag6064090wgu02.gif';
 	async function getClassData(className) {
-		const res = await fetch('http://127.0.0.1:5000/get/' + className);
+		const res = await fetch('http://127.0.0.1:5001/get/' + className);
 		return await res.json();
 
 		// if (res.ok) {

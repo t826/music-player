@@ -6,7 +6,7 @@
 	let BasicData;
 	//搜索vid数据
 	async function searcheVid(vidName) {
-		await fetch('http://127.0.0.1:5000/search', {
+		await fetch('http://127.0.0.1:5001/search', {
 			method: 'POST',
 			headers: new Headers({
 				'Content-Type': 'application/json'
@@ -27,7 +27,7 @@
 
 	//获取首页及各项分类
 	async function getBasicData(dataName){
-		const res =await fetch('http://127.0.0.1:5000/get'+dataName)
+		const res =await fetch('http://127.0.0.1:5001/get'+dataName)
 
 		
 	}
